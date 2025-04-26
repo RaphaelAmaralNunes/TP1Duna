@@ -29,7 +29,6 @@ public class GerenciamentoDeEspeciarias {
             System.out.println("Quantidade de Melange disponível:" + quantidadeMelange);
             System.out.println("Grupos Fremen contratados: " + fremenContratados);
             System.out.println();
-            Utilitarios.esperar(2);
 
             while(fimCiclo == false){
                 System.out.println("Escolha uma opção: ");
