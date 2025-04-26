@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-public class gerenciamentoDeEspeciarias {
+public class GerenciamentoDeEspeciarias {
 
     public static void main(String[] args) {
         int colheitadeirasDisponiveis, quantidadeMelange, fremenContratados;
