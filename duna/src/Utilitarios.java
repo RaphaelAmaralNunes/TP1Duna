@@ -11,18 +11,39 @@ public class Utilitarios {
     }
 
     public static String colorirTexto(String cor, String texto) {
-        if (cor.toUpperCase().equals("VERMELHO")) {
+        if (cor.equalsIgnoreCase("VERMELHO")) {
             return VERMELHO + texto + RESETAR;
         } else {
             return VERDE + texto + RESETAR;
         }
     }
 
-    public static void esperar(int segundos){
+    public static void esperar(int segundos) {
         try {
             TimeUnit.SECONDS.sleep(segundos);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static double calcularProbabilidadeAtaqueVermes(int numeroColheitadeiras) {
+        double fatorClimatico = Math.random();
+        return (0.1 * (numeroColheitadeiras) * (1 + fatorClimatico));
+    }
+
+    public static boolean temAtaque(int numeroColheitadeiras, int fremenContratados) {
+        int probabilidadePercentual = (int) (calcularProbabilidadeAtaqueVermes(numeroColheitadeiras) * 100);
+        if (fremenContratados != 0) {
+            probabilidadePercentual -= (fremenContratados * 5);
+        }
+        if (probabilidadePercentual >= 100) {
+            return true;
+        } else {
+            return gerarNumeroAleatorio(0, 100) < probabilidadePercentual;
+        }
+    }
+
+    public static int calcularColheitadeirasPerdidas() {
+            return gerarNumeroAleatorio(1, 6);
     }
 }

@@ -1,15 +1,15 @@
 import java.util.Scanner;
-import java.util.concurrent.*;
 
 public class GerenciamentoDeEspeciarias {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int colheitadeirasDisponiveis;
         int quantidadeMelange;
+        int melangeRecebida;
         int fremenContratados;
         int opcaoEscolhida;
         int colheitadeirasEnviadas;
-        int melangeRecebida;
+        double fatorClimatico;
         boolean fimCiclo;
 
         colheitadeirasDisponiveis = 10;
@@ -17,7 +17,7 @@ public class GerenciamentoDeEspeciarias {
         fremenContratados = 0;
 
         System.out.println();
-        System.out.println("Boas-Vindas Governador de "+ Utilitarios.colorirTexto("verde","Arrakis")+"!");
+        System.out.println("Boas-Vindas Governador de " + Utilitarios.colorirTexto("verde", "Arrakis") + "!");
         System.out.println();
         Utilitarios.esperar(2);
 
@@ -27,8 +27,8 @@ public class GerenciamentoDeEspeciarias {
             melangeRecebida = 0;
             fimCiclo = false;
 
-            if(i == 4 || i == 7 || i == 10) {
-                System.out.println("Tributo do imperador");
+            if (i == 4 || i == 7 || i == 10) {
+                System.out.println(Utilitarios.colorirTexto("vermelho", "Tributo do imperador"));
                 System.out.println();
             }
 
@@ -40,7 +40,7 @@ public class GerenciamentoDeEspeciarias {
             System.out.println();
             Utilitarios.esperar(2);
 
-            while(fimCiclo == false){
+            while (!fimCiclo) {
 
                 System.out.println("Escolha uma opção: ");
                 System.out.println("1 - Ver recursos atuais ");
@@ -53,7 +53,7 @@ public class GerenciamentoDeEspeciarias {
                 System.out.println();
                 Utilitarios.esperar(1);
 
-                switch(opcaoEscolhida){
+                switch (opcaoEscolhida) {
                     case 1:
                         System.out.println("Colheitadeiras disponíveis = " + colheitadeirasDisponiveis);
                         System.out.println("Quantidade de Melange disponível = " + quantidadeMelange);
@@ -63,7 +63,7 @@ public class GerenciamentoDeEspeciarias {
                         break;
 
                     case 2:
-                        if(quantidadeMelange < 500) {
+                        if (quantidadeMelange < 500) {
                             System.out.println("Quantidade de Melange insuficiente.");
                             System.out.println();
                         } else {
@@ -89,22 +89,49 @@ public class GerenciamentoDeEspeciarias {
                         System.out.println("Quantas colheitadeiras irá enviar: (colheitadeitas disponíveis = " + colheitadeirasDisponiveis + ") ");
                         colheitadeirasEnviadas = scan.nextInt();
 
-                        if(colheitadeirasEnviadas < 1 || colheitadeirasEnviadas > colheitadeirasDisponiveis) {
-                            if(colheitadeirasEnviadas < 1) {
+                        if (colheitadeirasEnviadas < 1 || colheitadeirasEnviadas > colheitadeirasDisponiveis) {
+                            if (colheitadeirasEnviadas < 1) {
                                 System.out.println("Você deve enviar ao menos 1 colheitadeira.");
                             } else {
                                 System.out.println("Você não possui " + colheitadeirasEnviadas + " colheitadeiras.");
                             }
                         } else {
-                            fimCiclo = true;
-                        }
+                            boolean vermeAtacou = Utilitarios.temAtaque(colheitadeirasEnviadas, fremenContratados);
+                            for (int j = 0; j < colheitadeirasEnviadas; j++) {
+                                int melangeProduzida = Utilitarios.gerarNumeroAleatorio(100, 300);
+                                melangeRecebida += melangeProduzida;
+                            }
+                            if (vermeAtacou) {
+                                int colheitadeirasPerdidas = Utilitarios.calcularColheitadeirasPerdidas();
+                                melangeRecebida = 0;
+                                if (colheitadeirasPerdidas > colheitadeirasEnviadas) {
+                                    colheitadeirasDisponiveis -= colheitadeirasEnviadas;
+                                    System.out.printf("Você sofreu um ataque de verme e perdeu %d colheitadeiras%nQuantidade atual " +
+                                            "de colheitadeiras: %d%n", colheitadeirasEnviadas, colheitadeirasDisponiveis);
+                                } else {
+                                    if (colheitadeirasDisponiveis < colheitadeirasPerdidas) {
+                                        colheitadeirasDisponiveis = 0;
+                                        System.out.println("Você sofreu um ataque de verme e perdeu todas as suas " +
+                                                "colheitadeiras");
 
+                                    } else {
+                                        colheitadeirasDisponiveis -= colheitadeirasPerdidas;
+                                        System.out.printf("Você sofreu um ataque de verme e perdeu %d colheitadeiras%nQuantidade atual " +
+                                                "de colheitadeiras: %d%n", colheitadeirasEnviadas, colheitadeirasDisponiveis);
+                                    }
+                                }
+                            } else {
+                                System.out.printf(Utilitarios.colorirTexto("VERDE", "Você foi bem sucedido e recebeu %d " +
+                                        "melanges"), melangeRecebida);
+                                quantidadeMelange += melangeRecebida;
+                            }
+                        }
+                        fimCiclo = true;
                         System.out.println();
                         break;
 
                     case 5:
                         System.out.println("Passou o ciclo atual");
-
                         System.out.println();
                         fimCiclo = true;
                         break;
@@ -117,3 +144,4 @@ public class GerenciamentoDeEspeciarias {
         }
     }
 }
+
