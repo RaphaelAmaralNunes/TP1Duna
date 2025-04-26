@@ -3,34 +3,35 @@ import java.util.concurrent.*;
 
 public class GerenciamentoDeEspeciarias {
 
-    public static void main(String[] args) {
-        int colheitadeirasDisponiveis, quantidadeMelange, fremenContratados;
-
+    public static void main(String[] args) throws InterruptedException {
+        int colheitadeirasDisponiveis;
+        int quantidadeMelange;
+        int fremenContratados;
         int opcaoEscolhida;
-
         int colheitadeirasEnviadas;
         int melangeRecebida;
-
         boolean fimCiclo;
 
         colheitadeirasDisponiveis = 10;
         quantidadeMelange = 0;
         fremenContratados = 0;
+        Scanner scan = new Scanner(System.in);
 
         for (int i = 1; i <= 12; i++) {
             colheitadeirasEnviadas = 0;
             melangeRecebida = 0;
             fimCiclo = false;
 
-            System.out.println(Utilitarios.colorirTexto("verde","Ciclo " + i));
-            System.out.println("Colheitadeiras disponíveis = " + colheitadeirasDisponiveis);
-            System.out.println("Quantidade de Melange disponível = " + quantidadeMelange);
-            System.out.println("Grupos Fremen contratados = " + fremenContratados);
+            System.out.println("Boas-Vindas Governador de "+ Utilitarios.colorirTexto("verde","Arrakis")+"!");
+            Utilitarios.esperar(1);
+            System.out.println("Ciclo " + i);
+            System.out.println("Colheitadeiras disponíveis: " + colheitadeirasDisponiveis);
+            System.out.println("Quantidade de Melange disponível:" + quantidadeMelange);
+            System.out.println("Grupos Fremen contratados: " + fremenContratados);
             System.out.println();
+            Utilitarios.esperar(2);
 
-            Scanner scan = new Scanner(System.in);
             while(fimCiclo == false){
-
                 System.out.println("Escolha uma opção: ");
                 System.out.println("1 - Ver recursos atuais ");
                 System.out.println("2 - Comprar colheitadeira (500 Melange) ");
