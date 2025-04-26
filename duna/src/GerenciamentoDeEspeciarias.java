@@ -22,7 +22,7 @@ public class GerenciamentoDeEspeciarias {
             melangeRecebida = 0;
             fimCiclo = false;
 
-            System.out.println("Ciclo " + i);
+            System.out.println(Utilitarios.colorirTexto("verde","Ciclo " + i));
             System.out.println("Colheitadeiras disponíveis = " + colheitadeirasDisponiveis);
             System.out.println("Quantidade de Melange disponível = " + quantidadeMelange);
             System.out.println("Grupos Fremen contratados = " + fremenContratados);
