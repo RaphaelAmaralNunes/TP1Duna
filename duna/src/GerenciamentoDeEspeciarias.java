@@ -15,22 +15,33 @@ public class GerenciamentoDeEspeciarias {
         colheitadeirasDisponiveis = 10;
         quantidadeMelange = 0;
         fremenContratados = 0;
-        Scanner scan = new Scanner(System.in);
 
+        System.out.println();
+        System.out.println("Boas-Vindas Governador de "+ Utilitarios.colorirTexto("verde","Arrakis")+"!");
+        System.out.println();
+        Utilitarios.esperar(2);
+
+        Scanner scan = new Scanner(System.in);
         for (int i = 1; i <= 12; i++) {
             colheitadeirasEnviadas = 0;
             melangeRecebida = 0;
             fimCiclo = false;
 
-            System.out.println("Boas-Vindas Governador de "+ Utilitarios.colorirTexto("verde","Arrakis")+"!");
-            Utilitarios.esperar(1);
+            if(i == 4 || i == 7 || i == 10) {
+                System.out.println("Tributo do imperador");
+                System.out.println();
+            }
+
             System.out.println("Ciclo " + i);
+            System.out.println();
             System.out.println("Colheitadeiras disponíveis: " + colheitadeirasDisponiveis);
             System.out.println("Quantidade de Melange disponível:" + quantidadeMelange);
             System.out.println("Grupos Fremen contratados: " + fremenContratados);
             System.out.println();
+            Utilitarios.esperar(2);
 
             while(fimCiclo == false){
+
                 System.out.println("Escolha uma opção: ");
                 System.out.println("1 - Ver recursos atuais ");
                 System.out.println("2 - Comprar colheitadeira (500 Melange) ");
@@ -40,6 +51,7 @@ public class GerenciamentoDeEspeciarias {
 
                 opcaoEscolhida = scan.nextInt();
                 System.out.println();
+                Utilitarios.esperar(1);
 
                 switch(opcaoEscolhida){
                     case 1:
@@ -102,7 +114,6 @@ public class GerenciamentoDeEspeciarias {
                         System.out.println();
                 }
             }
-            scan.close();
         }
     }
 }
