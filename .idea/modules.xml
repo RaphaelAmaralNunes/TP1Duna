@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/TP1Duna.iml" filepath="$PROJECT_DIR$/.idea/TP1Duna.iml" />
+      <module fileurl="file://$PROJECT_DIR$/duna/duna.iml" filepath="$PROJECT_DIR$/duna/duna.iml" />
     </modules>
   </component>
 </project>
