@@ -26,31 +26,34 @@ public class Utilitarios {
         }
     }
 
-    public static double calcularProbabilidadeAtaqueVermes(int numeroColheitadeiras) {
-        double fatorClimatico = Math.random();
+    public static double calcularProbabilidadeAtaqueVermes(int numeroColheitadeiras, double fatorClimatico) {
         return (0.1 * (numeroColheitadeiras) * (1 + fatorClimatico));
     }
 
-    public static boolean temAtaque(int numeroColheitadeiras, int fremenContratados) {
-        int probabilidadePercentual = (int) (calcularProbabilidadeAtaqueVermes(numeroColheitadeiras) * 100);
+    public static boolean temAtaque(int numeroColheitadeiras, double fatorClimatico, int fremenContratados) {
+        int probabilidadePercentual = (int) (calcularProbabilidadeAtaqueVermes(numeroColheitadeiras, fatorClimatico) * 100);
         if (fremenContratados != 0) {
             probabilidadePercentual -= (fremenContratados * 5);
         }
+        System.out.println("Probabilidade de ataque = " + probabilidadePercentual);
         if (probabilidadePercentual >= 100) {
             return true;
         } else {
-            return gerarNumeroAleatorio(0, 100) < probabilidadePercentual;
+            return gerarNumeroAleatorio(0, 100) <= probabilidadePercentual;
         }
     }
 
-    public static int calcularColheitadeirasPerdidas() {
-        return gerarNumeroAleatorio(1, 6);
+    public static int calcularColheitadeirasPerdidas(int colheitadeirasEnviadas) {
+        if (colheitadeirasEnviadas < 6){
+            return gerarNumeroAleatorio(1, colheitadeirasEnviadas);
+        } else {
+            return gerarNumeroAleatorio(1, 6);
+        }
     }
 
-    public static void gerarRelatorioFinal(int melangeAcumulada, int colheitadeirasRestantes, int ataquesSofridos,
-                                           int penalidadeImperador){
-        System.out.println("FIM DOS 12 CICLOS");
-        System.out.printf("Quantidade de especiaria acumulada: %d%n", melangeAcumulada);
+    public static void gerarRelatorioFinal(int melangeAcumulada, int colheitadeirasRestantes, int ataquesSofridos, int penalidadeImperador){
+        System.out.println("FIM DE JOGO!");
+        System.out.printf("Quantidade de Melange acumulada: %d%n", melangeAcumulada);
         System.out.printf("Colhetadeiras restantes: %d%n",colheitadeirasRestantes);
         System.out.printf("Ataques sofridos: %d%n", ataquesSofridos);
         System.out.println("Cumpriu as exigêncicas do Imperador: " + (penalidadeImperador<3?"Sim":"Não"));
