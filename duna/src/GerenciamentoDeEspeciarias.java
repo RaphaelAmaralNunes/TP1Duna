@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class GerenciamentoDeEspeciarias {
-
+    
     public static void main(String[] args) throws InterruptedException {
         int colheitadeirasDisponiveis;
         int quantidadeMelange;
