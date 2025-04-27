@@ -44,6 +44,16 @@ public class Utilitarios {
     }
 
     public static int calcularColheitadeirasPerdidas() {
-            return gerarNumeroAleatorio(1, 6);
+        return gerarNumeroAleatorio(1, 6);
     }
+
+    public static void gerarRelatorioFinal(int melangeAcumulada, int colheitadeirasRestantes, int ataquesSofridos,
+                                           int penalidadeImperador){
+        System.out.println("FIM DOS 12 CICLOS");
+        System.out.printf("Quantidade de especiaria acumulada: %d%n", melangeAcumulada);
+        System.out.printf("Colhetadeiras restantes: %d%n",colheitadeirasRestantes);
+        System.out.printf("Ataques sofridos: %d%n", ataquesSofridos);
+        System.out.println("Cumpriu as exigêncicas do Imperador: " + (penalidadeImperador<3?"Sim":"Não"));
+    }
+
 }

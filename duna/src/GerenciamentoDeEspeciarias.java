@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class GerenciamentoDeEspeciarias {
-    
-    public static void main(String[] args) throws InterruptedException {
+
+    public static void main(String[] args) {
         int colheitadeirasDisponiveis;
         int quantidadeMelange;
         int fremenContratados;
@@ -10,12 +10,14 @@ public class GerenciamentoDeEspeciarias {
         int colheitadeirasEnviadas;
         int melangeRecebida;
         int penalidadeImperador;
+        int ataquesSofridos;
         boolean fimCiclo;
 
         colheitadeirasDisponiveis = 10;
         quantidadeMelange = 2100;
         fremenContratados = 0;
         penalidadeImperador = 0;
+        ataquesSofridos = 0;
 
         System.out.println();
         System.out.println("Boas-Vindas Governador de " + Utilitarios.colorirTexto("verde", "Arrakis") + "!");
@@ -25,6 +27,7 @@ public class GerenciamentoDeEspeciarias {
         Scanner scan = new Scanner(System.in);
         for (int i = 1; i <= 12; i++) {
             colheitadeirasEnviadas = 0;
+            fremenContratados = 0;
             melangeRecebida = 0;
             fimCiclo = false;
 
@@ -33,16 +36,15 @@ public class GerenciamentoDeEspeciarias {
             System.out.println("Colheitadeiras disponíveis: " + colheitadeirasDisponiveis);
             System.out.println("Quantidade de Melange disponível: " + quantidadeMelange);
             System.out.println("Grupos Fremen contratados: " + fremenContratados);
-            System.out.println("Quantidade de penalidades = " + penalidadeImperador);
+            System.out.println("Quantidade de penalidades: " + penalidadeImperador);
             System.out.println();
             Utilitarios.esperar(2);
 
-            while (fimCiclo == false) {
-
+            while (!fimCiclo) {
                 System.out.println("Escolha uma opção:");
                 System.out.println("1 - Ver recursos atuais");
-                System.out.println("2 - Comprar colheitadeira (500 Melange)");
-                System.out.println("3 - Contratar grupo Fremen (200 Melange / ciclo cada)");
+                System.out.println("2 - Comprar colheitadeira(500 Melange)");
+                System.out.println("3 - Contratar grupo Fremen(200 Melange/ciclo cada)");
                 System.out.println("4 - Enviar colheitadeiras");
                 System.out.println("5 - Passar ciclo");
 
@@ -52,38 +54,39 @@ public class GerenciamentoDeEspeciarias {
 
                 switch (opcaoEscolhida) {
                     case 1:
-                        System.out.println("Colheitadeiras disponíveis = " + colheitadeirasDisponiveis);
-                        System.out.println("Quantidade de Melange disponível = " + quantidadeMelange);
-                        System.out.println("Grupos Fremen contratados = " + fremenContratados);
-
+                        System.out.println("Colheitadeiras disponíveis: " + colheitadeirasDisponiveis);
+                        System.out.println("Quantidade de Melange disponível: " + quantidadeMelange);
+                        System.out.println("Grupos Fremen contratados: " + fremenContratados);
                         System.out.println();
                         break;
-
                     case 2:
                         if (quantidadeMelange < 500) {
-                            System.out.println("Quantidade de Melange insuficiente.");
+                            System.out.println(Utilitarios.colorirTexto("Vermelho", "Quantidade de Melange insuficiente."));
                             System.out.println();
                         } else {
                             quantidadeMelange -= 500;
                             colheitadeirasDisponiveis += 1;
                             System.out.println("Comprou 1 colheitadeira.");
-                            System.out.println("Colheitadeiras disponíveis = " + colheitadeirasDisponiveis);
-                            System.out.println("quantidade de Melange restante = " + quantidadeMelange);
+                            System.out.println("Colheitadeiras disponíveis: " + colheitadeirasDisponiveis);
+                            System.out.println("Quantidade de Melange restante: " + quantidadeMelange);
                         }
-
                         System.out.println();
                         break;
-
                     case 3:
-                        fremenContratados += 1;
-                        System.out.println("Contratou grupo Fremen.");
-                        System.out.println("Grupos Fremen contratados = " + fremenContratados);
-
+                        if (quantidadeMelange < 200) {
+                            System.out.println(Utilitarios.colorirTexto("VERMELHO", "Melange insuficiente para contratar " +
+                                    "grupo Fremen."));
+                        } else {
+                            fremenContratados += 1;
+                            quantidadeMelange -=200;
+                            System.out.println("Contratou grupo Fremen.");
+                            System.out.println("Grupos Fremen contratados no ciclo atual: " + fremenContratados);
+                        }
                         System.out.println();
                         break;
-
                     case 4:
-                        System.out.println("Quantas colheitadeiras irá enviar: (colheitadeitas disponíveis = " + colheitadeirasDisponiveis + ") ");
+                        System.out.printf("Você possui %d colheitadeiras para enviar%n", colheitadeirasDisponiveis);
+                        System.out.println("Quantas colheitadeiras irá enviar: ");
                         colheitadeirasEnviadas = scan.nextInt();
                         System.out.println();
 
@@ -105,6 +108,7 @@ public class GerenciamentoDeEspeciarias {
                             if (vermeAtacou) {
                                 int colheitadeirasPerdidas = Utilitarios.calcularColheitadeirasPerdidas();
                                 melangeRecebida = 0;
+                                ataquesSofridos++;
                                 if (colheitadeirasPerdidas > colheitadeirasEnviadas) {
                                     colheitadeirasDisponiveis -= colheitadeirasEnviadas;
                                     System.out.printf("Você sofreu um ataque de verme e perdeu %d colheitadeiras%nQuantidade atual " +
@@ -117,11 +121,10 @@ public class GerenciamentoDeEspeciarias {
 
                                         System.out.println("Você enviou " + colheitadeirasEnviadas + " colheitadeiras.");
                                         System.out.println();
-                                        fimCiclo = true;
                                     } else {
                                         colheitadeirasDisponiveis -= colheitadeirasPerdidas;
                                         System.out.printf("Você sofreu um ataque de verme e perdeu %d colheitadeiras%nQuantidade atual " +
-                                                "de colheitadeiras: %d%n", colheitadeirasEnviadas, colheitadeirasDisponiveis);
+                                                "de colheitadeiras: %d%n", colheitadeirasPerdidas, colheitadeirasDisponiveis);
                                     }
                                 }
                             } else {
@@ -135,18 +138,15 @@ public class GerenciamentoDeEspeciarias {
                         break;
                     case 5:
                         System.out.println("Passou o ciclo atual.");
-
                         System.out.println();
                         fimCiclo = true;
                         break;
-
                     default:
                         System.out.println("Opção inválida. Escolha uma das opções abaixo.");
                         System.out.println();
                 }
                 Utilitarios.esperar(1);
             }
-
             //Lógica ataque verme - receber Melange
 
             //Lógica pagamento Fremen
@@ -157,7 +157,7 @@ public class GerenciamentoDeEspeciarias {
                 System.out.println();
                 System.out.println("O imperador cobra de você 1000 Melange como tributo pelas operações em " + Utilitarios.colorirTexto("verde", "Arrakis"));
                 System.out.println();
-                System.out.println("Quantidade de Melange disponível = " + quantidadeMelange);
+                System.out.println("Quantidade de Melange disponível: " + quantidadeMelange);
                 System.out.println();
                 Utilitarios.esperar(1);
 
@@ -165,7 +165,7 @@ public class GerenciamentoDeEspeciarias {
                     case 0:
                         if (quantidadeMelange < 1000 && quantidadeMelange >= 500) {
                             quantidadeMelange -= 500;
-                            penalidadeImperador += 1;
+                            penalidadeImperador++;
                             System.out.println("Você não consegue pagar o Imperador.");
                             System.out.println();
                             System.out.println("Você recebe uma multa de 500 Melange.");
@@ -174,7 +174,7 @@ public class GerenciamentoDeEspeciarias {
                             System.out.println();
                         } else if (quantidadeMelange < 500) {
                             quantidadeMelange = 0;
-                            penalidadeImperador += 1;
+                            penalidadeImperador++;
                             System.out.println("Você não consegue pagar o Imperador.");
                             System.out.println();
                             System.out.println("O Imperador confisca os seus estoques de Melange.");
@@ -187,11 +187,10 @@ public class GerenciamentoDeEspeciarias {
                             System.out.println();
                         }
                         break;
-
                     case 1:
                         if (quantidadeMelange < 1000 && colheitadeirasDisponiveis >= 2) {
                             colheitadeirasDisponiveis -= 2;
-                            penalidadeImperador += 1;
+                            penalidadeImperador++;
                             System.out.println("Você não consegue pagar o Imperador.");
                             System.out.println();
                             System.out.println("O imperador confisca 2 de suas colheitadeiras.");
@@ -200,7 +199,7 @@ public class GerenciamentoDeEspeciarias {
                             System.out.println();
                         } else if (quantidadeMelange < 1000 && colheitadeirasDisponiveis < 2) {
                             colheitadeirasDisponiveis = 0;
-                            penalidadeImperador += 1;
+                            penalidadeImperador++;
                             System.out.println("Você não consegue pagar o Imperador.");
                             System.out.println();
                             System.out.println("O imperador confisca suas colheitadeiras.");
@@ -230,5 +229,6 @@ public class GerenciamentoDeEspeciarias {
                 }
             }
         }
+        Utilitarios.gerarRelatorioFinal(quantidadeMelange, colheitadeirasDisponiveis, ataquesSofridos, penalidadeImperador);
     }
 }
