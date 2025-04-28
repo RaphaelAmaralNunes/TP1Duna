@@ -4,6 +4,8 @@ import java.util.concurrent.TimeUnit;
 public class Utilitarios {
     private static final String VERMELHO = "\u001B[31m";
     private static final String VERDE = "\u001B[32m";
+    private static final String AMARELO = "\u001b[32m";
+
     private static final String RESETAR = "\u001B[00m";
 
     public static int gerarNumeroAleatorio(int origem, int limite) {
@@ -13,6 +15,8 @@ public class Utilitarios {
     public static String colorirTexto(String cor, String texto) {
         if (cor.equalsIgnoreCase("VERMELHO")) {
             return VERMELHO + texto + RESETAR;
+        } else if (cor.equalsIgnoreCase("AMARELO")) {
+            return AMARELO + texto + RESETAR;
         } else {
             return VERDE + texto + RESETAR;
         }
@@ -35,7 +39,7 @@ public class Utilitarios {
         if (fremenContratados != 0) {
             probabilidadePercentual -= (fremenContratados * 5);
         }
-        System.out.println("Probabilidade de ataque = " + probabilidadePercentual);
+        System.out.println("Probabilidade de ataque = " + probabilidadePercentual + "%");
         if (probabilidadePercentual >= 100) {
             return true;
         } else {
@@ -44,19 +48,23 @@ public class Utilitarios {
     }
 
     public static int calcularColheitadeirasPerdidas(int colheitadeirasEnviadas) {
-        if (colheitadeirasEnviadas < 6){
-            return gerarNumeroAleatorio(1, colheitadeirasEnviadas);
+        if (colheitadeirasEnviadas < 6) {
+            if (colheitadeirasEnviadas == 1) {
+                return 1;
+            } else {
+                return gerarNumeroAleatorio(1, colheitadeirasEnviadas);
+            }
         } else {
             return gerarNumeroAleatorio(1, 6);
         }
     }
 
-    public static void gerarRelatorioFinal(int melangeAcumulada, int colheitadeirasRestantes, int ataquesSofridos, int penalidadeImperador){
+    public static void gerarRelatorioFinal(int melangeAcumulada, int colheitadeirasRestantes, int ataquesSofridos, int penalidadeImperador) {
         System.out.println("FIM DE JOGO!");
         System.out.printf("Quantidade de Melange acumulada: %d%n", melangeAcumulada);
-        System.out.printf("Colhetadeiras restantes: %d%n",colheitadeirasRestantes);
+        System.out.printf("Colhetadeiras restantes: %d%n", colheitadeirasRestantes);
         System.out.printf("Ataques sofridos: %d%n", ataquesSofridos);
-        System.out.println("Cumpriu as exigêncicas do Imperador: " + (penalidadeImperador<3?"Sim":"Não"));
+        System.out.println("Cumpriu as exigêncicas do Imperador: " + (penalidadeImperador < 3 ? "Sim" : "Não"));
     }
 
 }
