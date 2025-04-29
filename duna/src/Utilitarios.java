@@ -3,9 +3,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Utilitarios {
     private static final String VERMELHO = "\u001B[31m";
-    private static final String VERDE = "\u001B[32m";
     private static final String LARANJA = "\u001B[38;2;255;100;0m";
     private static final String AMARELO = "\u001b[33m";
+    private static final String VERDE = "\u001B[32m";
 
     private static final String RESETAR = "\u001B[00m";
 
