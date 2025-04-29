@@ -25,6 +25,8 @@ public class GerenciamentoDeEspeciarias {
         int fremenPerdidos;
 
         int penalidadeImperador;
+
+        int ciclosJogados;
         boolean fimCiclo;
 
         colheitadeirasDisponiveis = 10;
@@ -33,14 +35,20 @@ public class GerenciamentoDeEspeciarias {
         ataquesSofridos = 0;
         penalidadeImperador = 0;
         melangeAcumulada = 0;
+        ciclosJogados = 0;
+
+        Utilitarios.esperar(1000);
 
         System.out.println();
         System.out.println("Boas-Vindas Governador de " + Utilitarios.colorirTexto("verde", "Arrakis") + "!");
         System.out.println();
-        Utilitarios.esperar(2);
+
+        Utilitarios.esperar(1000);
 
         Scanner scan = new Scanner(System.in);
+
         for (int i = 1; i <= 12; i++) {
+            ciclosJogados += 1;
             melangeRecebida = 0;
             fimCiclo = false;
 
@@ -48,47 +56,73 @@ public class GerenciamentoDeEspeciarias {
 
             System.out.println("Ciclo " + i);
             System.out.println();
+
+            Utilitarios.esperar(1000);
+
             if (fatorClimatico <= 0.25) {
                 clima = "calmo";
                 System.out.println("O clima está " + Utilitarios.colorirTexto("verde", "calmo") + ".");
             } else if (fatorClimatico <= 0.50) {
                 clima = "instável";
-                System.out.println("O clima está um pouco instável.");
+                System.out.println("O clima está um pouco " + Utilitarios.colorirTexto("amarelo", "instável") + ".");
             } else if (fatorClimatico <= 0.75) {
                 clima = "agitado";
-                System.out.println("O clima está agitado.");
+                System.out.println("O clima está " + Utilitarios.colorirTexto("laranja", "agitado") + ".");
             } else {
                 clima = "hostíl";
                 System.out.println("O clima está " + Utilitarios.colorirTexto("vermelho", "hostíl") + ".");
             }
             System.out.println();
+
+            Utilitarios.esperar(1000);
+
             System.out.println("Colheitadeiras disponíveis: " + colheitadeirasDisponiveis);
+            Utilitarios.esperar(200);
             System.out.println("Quantidade de Melange disponível: " + quantidadeMelange);
+            Utilitarios.esperar(200);
             System.out.println("Grupos Fremen contratados: " + fremenContratados);
+            Utilitarios.esperar(200);
             System.out.println("Quantidade de penalidades = " + penalidadeImperador);
             System.out.println();
-            Utilitarios.esperar(2);
 
             while (!fimCiclo) {
 
+                Utilitarios.esperar(1000);
+
                 System.out.println("Escolha uma opção:");
+
+                Utilitarios.esperar(1000);
+
                 System.out.println("1 - Ver informações do ciclo atual");
+                Utilitarios.esperar(200);
                 System.out.println("2 - Comprar colheitadeira (500 Melange)");
+                Utilitarios.esperar(200);
                 System.out.println("3 - Contratar grupo Fremen (200 Melange / ciclo cada)");
+                Utilitarios.esperar(200);
                 System.out.println("4 - Enviar colheitadeiras");
+                Utilitarios.esperar(200);
                 System.out.println("5 - Passar ciclo");
 
+                Utilitarios.esperar(200);
+
+                System.out.print("Opção: ");
                 opcaoEscolhida = scan.nextInt();
                 System.out.println();
-                Utilitarios.esperar(1);
+
+                Utilitarios.esperar(1000);
 
                 switch (opcaoEscolhida) {
                     case 1:
                         System.out.println("Ciclo atual = " + i);
+                        Utilitarios.esperar(200);
                         System.out.println("Clima = " + clima);
+                        Utilitarios.esperar(200);
                         System.out.println("Colheitadeiras disponíveis = " + colheitadeirasDisponiveis);
+                        Utilitarios.esperar(200);
                         System.out.println("Quantidade de Melange disponível = " + quantidadeMelange);
+                        Utilitarios.esperar(200);
                         System.out.println("Grupos Fremen contratados = " + fremenContratados);
+                        Utilitarios.esperar(200);
                         System.out.println("Penalidades do Imperador = " + penalidadeImperador);
                         System.out.println();
                         break;
@@ -168,8 +202,8 @@ public class GerenciamentoDeEspeciarias {
                     default:
                         System.out.println("Opção inválida. Escolha uma das opções abaixo.");
                         System.out.println();
+                        Utilitarios.esperar(200);
                 }
-                Utilitarios.esperar(1);
             }
             if (fremenContratados > 0) {
                 System.out.println("Pagamento dos grupos Fremen.");
@@ -197,7 +231,7 @@ public class GerenciamentoDeEspeciarias {
                 System.out.println();
                 System.out.println("Quantidade de Melange disponível = " + quantidadeMelange);
                 System.out.println();
-                Utilitarios.esperar(1);
+
                 switch (penalidadeImperador) {
                     case 0:
                         if (quantidadeMelange < 1000 && quantidadeMelange >= 500) {
@@ -266,6 +300,6 @@ public class GerenciamentoDeEspeciarias {
                 }
             }
         }
-        Utilitarios.gerarRelatorioFinal(melangeAcumulada, colheitadeirasDisponiveis, ataquesSofridos, penalidadeImperador);
+        Utilitarios.gerarRelatorioFinal(melangeAcumulada, colheitadeirasDisponiveis, ataquesSofridos, penalidadeImperador, ciclosJogados);
     }
 }

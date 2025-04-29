@@ -4,7 +4,8 @@ import java.util.concurrent.TimeUnit;
 public class Utilitarios {
     private static final String VERMELHO = "\u001B[31m";
     private static final String VERDE = "\u001B[32m";
-    private static final String AMARELO = "\u001b[32m";
+    private static final String LARANJA = "\u001B[38;2;255;100;0m";
+    private static final String AMARELO = "\u001b[33m";
 
     private static final String RESETAR = "\u001B[00m";
 
@@ -17,14 +18,17 @@ public class Utilitarios {
             return VERMELHO + texto + RESETAR;
         } else if (cor.equalsIgnoreCase("AMARELO")) {
             return AMARELO + texto + RESETAR;
-        } else {
+        } else if (cor.equalsIgnoreCase("LARANJA")) {
+            return LARANJA + texto + RESETAR;
+        }
+        else {
             return VERDE + texto + RESETAR;
         }
     }
 
-    public static void esperar(int segundos) {
+    public static void esperar(int milissegundos) {
         try {
-            TimeUnit.SECONDS.sleep(segundos);
+            TimeUnit.MILLISECONDS.sleep(milissegundos);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -59,8 +63,9 @@ public class Utilitarios {
         }
     }
 
-    public static void gerarRelatorioFinal(int melangeAcumulada, int colheitadeirasRestantes, int ataquesSofridos, int penalidadeImperador) {
+    public static void gerarRelatorioFinal(int melangeAcumulada, int colheitadeirasRestantes, int ataquesSofridos, int penalidadeImperador, int ciclosJogados) {
         System.out.println("FIM DE JOGO!");
+        System.out.println("Ciclos jogados = " + ciclosJogados);
         System.out.printf("Quantidade de Melange acumulada: %d%n", melangeAcumulada);
         System.out.printf("Colhetadeiras restantes: %d%n", colheitadeirasRestantes);
         System.out.printf("Ataques sofridos: %d%n", ataquesSofridos);
