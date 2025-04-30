@@ -30,7 +30,7 @@ public class GerenciamentoDeEspeciarias {
         boolean fimCiclo;
 
         colheitadeirasDisponiveis = 10;
-        quantidadeMelange = 0;
+        quantidadeMelange = 500;
         fremenContratados = 0;
         ataquesSofridos = 0;
         penalidadeImperador = 0;
@@ -102,7 +102,6 @@ public class GerenciamentoDeEspeciarias {
                 System.out.println("4 - Enviar colheitadeiras");
                 Utilitarios.esperar(200);
                 System.out.println("5 - Passar ciclo");
-
                 Utilitarios.esperar(200);
 
                 System.out.print("Opção: ");
@@ -130,7 +129,6 @@ public class GerenciamentoDeEspeciarias {
                     case 2:
                         if (quantidadeMelange < 500) {
                             System.out.println("Quantidade de Melange insuficiente.");
-                            System.out.println();
                         } else {
                             quantidadeMelange -= 500;
                             colheitadeirasDisponiveis += 1;
@@ -150,24 +148,28 @@ public class GerenciamentoDeEspeciarias {
 
                     case 4:
                         System.out.println("Quantas colheitadeiras irá enviar: (colheitadeiras disponíveis = " + colheitadeirasDisponiveis + ") ");
+                        System.out.print("Quantidade: ");
                         colheitadeirasEnviadas = scan.nextInt();
                         System.out.println();
 
                         if (colheitadeirasEnviadas < 1 || colheitadeirasEnviadas > colheitadeirasDisponiveis) {
                             if (colheitadeirasEnviadas < 1) {
                                 System.out.println("Você deve enviar ao menos 1 colheitadeira.");
-                                System.out.println();
                             } else {
                                 System.out.println("Você não possui " + colheitadeirasEnviadas + " colheitadeiras.");
-                                System.out.println();
                             }
+                            System.out.println();
                         } else {
                             System.out.println("Você enviou " + colheitadeirasEnviadas + " colheitadeiras.");
+                            System.out.println();
+
                             vermeAtacou = Utilitarios.temAtaque(colheitadeirasEnviadas, fatorClimatico, fremenContratados);
+
                             for (int j = 1; j <= colheitadeirasEnviadas; j++) {
                                 melangeProduzida = Utilitarios.gerarNumeroAleatorio(100, 300);
                                 melangeRecebida += melangeProduzida;
                             }
+
                             if (vermeAtacou) {
                                 colheitadeirasPerdidas = Utilitarios.calcularColheitadeirasPerdidas(colheitadeirasEnviadas);
                                 melangeRecebida = 0;
@@ -213,12 +215,15 @@ public class GerenciamentoDeEspeciarias {
                     fremenPerdidos = dividaFremen / 200;
                     fremenContratados -= fremenPerdidos;
                     System.out.println("Você não conseguiu pagar todos os grupos Fremen.");
+                    System.out.println();
                     System.out.println(fremenPerdidos + " grupos Fremen se revoltaram e foram embora.");
+                    System.out.println();
                     System.out.println("Grupos Fremen restantes = " + fremenContratados);
                     System.out.println();
                 } else {
                     quantidadeMelange -= fremenContratados * 200;
                     System.out.println("Você pagou os grupos Fremen.");
+                    System.out.println();
                     System.out.println("Melange restante = " + quantidadeMelange);
                     System.out.println();
                 }
