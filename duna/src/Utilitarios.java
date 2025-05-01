@@ -43,7 +43,7 @@ public class Utilitarios {
         if (fremenContratados != 0) {
             probabilidadePercentual -= (fremenContratados * 5);
         }
-        System.out.println("Probabilidade de ataque = " + probabilidadePercentual + "%");
+        //System.out.println("Probabilidade de ataque = " + probabilidadePercentual + "%");
         if (probabilidadePercentual >= 100) {
             return true;
         } else {
