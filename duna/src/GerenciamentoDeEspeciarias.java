@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GerenciamentoDeEspeciarias {
@@ -105,13 +106,20 @@ public class GerenciamentoDeEspeciarias {
                 Utilitarios.esperar(200);
 
                 System.out.print("Opção: ");
-                opcaoEscolhida = scan.nextInt();
+                try {
+                    opcaoEscolhida = scan.nextInt();
+                } catch (InputMismatchException e) {
+                    opcaoEscolhida = -1;
+                    scan.next();
+                }
                 System.out.println();
 
                 Utilitarios.esperar(1000);
 
                 switch (opcaoEscolhida) {
-                    case 1:
+                    case -1: // Captura de Exceções
+                        break;
+                    case 1: // Mostrar informações
                         System.out.println("Ciclo atual = " + i);
                         Utilitarios.esperar(200);
                         System.out.println("Clima = " + clima);
@@ -126,7 +134,7 @@ public class GerenciamentoDeEspeciarias {
                         System.out.println();
                         break;
 
-                    case 2:
+                    case 2: // Comprar colheitadeira
                         if (quantidadeMelange < 500) {
                             System.out.println("Quantidade de Melange insuficiente.");
                         } else {
@@ -139,17 +147,22 @@ public class GerenciamentoDeEspeciarias {
                         System.out.println();
                         break;
 
-                    case 3:
+                    case 3: // Contratar grupo Fremen
                         fremenContratados += 1;
                         System.out.println("Contratou grupo Fremen.");
                         System.out.println("Grupos Fremen contratados = " + fremenContratados);
                         System.out.println();
                         break;
 
-                    case 4:
+                    case 4: // Enviar colheitadeiras
                         System.out.println("Quantas colheitadeiras irá enviar: (colheitadeiras disponíveis = " + colheitadeirasDisponiveis + ") ");
                         System.out.print("Quantidade: ");
-                        colheitadeirasEnviadas = scan.nextInt();
+                        try {
+                            colheitadeirasEnviadas = scan.nextInt();
+                        } catch (InputMismatchException e) {
+                            colheitadeirasEnviadas = 0;
+                            scan.next();
+                        }
                         System.out.println();
 
                         if (colheitadeirasEnviadas < 1 || colheitadeirasEnviadas > colheitadeirasDisponiveis) {
@@ -195,13 +208,13 @@ public class GerenciamentoDeEspeciarias {
                         System.out.println();
                         break;
 
-                    case 5:
+                    case 5: // Passar o ciclo atual
                         System.out.println("Passou o ciclo atual.");
                         System.out.println();
                         fimCiclo = true;
                         break;
 
-                    default:
+                    default: // Caso o usuário digite um número menor que 1 ou maior que 5
                         System.out.println("Opção inválida. Escolha uma das opções abaixo.");
                         System.out.println();
                         Utilitarios.esperar(200);
