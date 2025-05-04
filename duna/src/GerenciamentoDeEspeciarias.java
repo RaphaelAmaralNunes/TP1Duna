@@ -1,6 +1,40 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Classe principal responsável por gerenciar a simulão de extração de Melange no planeta Arrakis.
+ *
+ * <p> O jogo se divide em 12 ciclos, nos quais o jogador deve gerenciar recursos como o número de colheitadeiras, o número de
+ * grupos Fremen contrados e o estoque de Melange.</p>
+ *
+ * <p>A cada ciclo, o jogador pode realizar ações como comprar colheitadeiras, contratar grupos Fremen, enviar colheitadeiras
+ * para colher Melange(passando automaticamente o ciclo atual) ou passar o ciclo sem realizar ações. O evento Ataque de Verme
+ * influencia no sucesso da colheita.</p>
+ *
+ * <p>A cada 3 ciclos, o Imperador exige o pagamento de 1000 Melange com tributo. Caso o jogador não pague, penalidades
+ * crescente serão aplicados, resultando na perda de Melange e de colheitadeiras. Caso o jogador não pague 3 vezes, o jogo
+ * será finalizado.</p>
+ *
+ * <p>Ao final da simulação, um relatório é gerado com as principais informações da campanha de mineração.</p>
+ *
+ * <h4>Recursos Gerenciados:</h4>
+ * <ul>
+ *     <li>Colheitadeiras</li>
+ *     <li>Grupos Fremen</li>
+ *     <li>Quantidade de Melange</li>
+ * </ul>
+ *
+ * <h4>Eventos Aleatórios:</h4>
+ * <ul>
+ *     <li>Clima(calmo, instável, agitado, hostil): influencia da chance de ocorrer um ataque de vermes</li>
+ *     <li>Ataque de Vermes: caso ocorra, resulta na perda de 1 a 6 colheitadeiras e de toda Melange gerado em um ciclo</li>
+ * </ul>
+ *
+ * @author Iuri da Silva Fenrnandes
+ * @author Raphael do Amaral Nunes
+ * @version 1.0
+ */
+
 public class GerenciamentoDeEspeciarias {
 
     public static void main(String[] args) {
