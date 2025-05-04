@@ -31,7 +31,7 @@ import java.util.Scanner;
  * </ul>
  *
  * @author Iuri da Silva Fenrnandes
- * @author Raphael do Amaral Nunes
+ * @author Rjaca do Amaral Nunes
  * @version 1.0
  */
 
