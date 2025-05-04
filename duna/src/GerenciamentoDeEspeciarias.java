@@ -30,8 +30,8 @@ import java.util.Scanner;
  *     <li>Ataque de Vermes: caso ocorra, resulta na perda de 1 a 6 colheitadeiras e de toda Melange gerado em um ciclo</li>
  * </ul>
  *
- * @author Iuri da Silva Fenrnandes
- * @author Rjaca do Amaral Nunes
+ * @author Iuri da Silva Fernandes
+ * @author Raphael do Amaral Nunes
  * @version 1.0
  */
 
