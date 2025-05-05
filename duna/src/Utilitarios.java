@@ -104,8 +104,8 @@ public class Utilitarios {
     /**
      * Calcula quantas colheitadeiras foram perdidas após um ataque de vermes
      * @param colheitadeirasEnviadas o número de colheitadeiras que serão enviadas
-     * @return um número aleatório gerado entre 1 e 6
-     * 
+     * @return um número aleatório gerado entre 1 e 6 ou 1 e colheitadeirasEnviadas
+     *
      * @see #gerarNumeroAleatorio(int, int) 
      * @author Iuri da Silva Fernandes
      * @author Raphael do Amaral Nunes
@@ -115,15 +115,15 @@ public class Utilitarios {
             if (colheitadeirasEnviadas == 1) {
                 return 1;
             } else {
-                return gerarNumeroAleatorio(1, colheitadeirasEnviadas);
+                return gerarNumeroAleatorio(1, colheitadeirasEnviadas + 1);
             }
         } else {
-            return gerarNumeroAleatorio(1, 6);
+            return gerarNumeroAleatorio(1, 7);
         }
     }
 
     /**
-     * Imprime no console os resultados finais com os principais dados na partida.
+     * Imprime no console os resultados com os principais dados na partida.
      *
      * <p>As seguintes informações são exibidas:
      * <ul>
