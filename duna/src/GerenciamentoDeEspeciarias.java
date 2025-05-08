@@ -65,7 +65,7 @@ public class GerenciamentoDeEspeciarias {
         boolean fimCiclo;
 
         colheitadeirasDisponiveis = 10;
-        quantidadeMelange = 1000;
+        quantidadeMelange = 0;
         fremenContratados = 0;
         ataquesSofridos = 0;
         penalidadeImperador = 0;
@@ -84,6 +84,7 @@ public class GerenciamentoDeEspeciarias {
 
         for (int i = 1; i <= 12; i++) {
             ciclosJogados += 1;
+            fremenContratados = 0;
             melangeRecebida = 0;
             fimCiclo = false;
 
@@ -257,7 +258,12 @@ public class GerenciamentoDeEspeciarias {
                 Utilitarios.esperar(1000);
                 if (quantidadeMelange < (fremenContratados * 200)) {
                     dividaFremen = (fremenContratados * 200) - quantidadeMelange;
-                    fremenPerdidos = dividaFremen / 200;
+                    if (dividaFremen < 200){
+                        fremenPerdidos = 1;
+                    } else {
+                        fremenPerdidos = dividaFremen / 200;
+                    }
+                    quantidadeMelange -= (fremenContratados - fremenPerdidos) * 200;
                     fremenContratados -= fremenPerdidos;
                     System.out.println("Você não conseguiu pagar todos os grupos Fremen.");
                     System.out.println(fremenPerdidos + " grupos Fremen se revoltaram e foram embora.");
