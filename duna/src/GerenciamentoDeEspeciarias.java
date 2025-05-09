@@ -282,8 +282,7 @@ public class GerenciamentoDeEspeciarias {
                 System.out.println(Utilitarios.colorirTexto("vermelho", "Tributo do Imperador.\n"));
                 Utilitarios.esperar(1000);
 
-                System.out.println("O Imperador cobra de você 1000 Melange pelas operações em " + Utilitarios.colorirTexto("verde", "Arrakis"));
-                System.out.println();
+                System.out.println("O Imperador cobra de você 1000 Melange pelas operações em " + Utilitarios.colorirTexto("verde", "Arrakis") + ".\n");
                 Utilitarios.esperar(1000);
                 if (quantidadeMelange >= 1000) {
                     System.out.println("Você pagou o tributo do Imperador.");
