@@ -64,7 +64,6 @@ public class GerenciamentoDeEspeciarias {
 
         colheitadeirasDisponiveis = 10;
         quantidadeMelange = 0;
-        fremenContratados = 0;
         ataquesSofridos = 0;
         penalidadeImperador = 0;
         melangeAcumulada = 0;
@@ -82,14 +81,17 @@ public class GerenciamentoDeEspeciarias {
 
         for (int i = 1; i <= 12; i++) {
             ciclosJogados += 1;
+            colheitadeirasEnviadas = 0;
             fremenContratados = 0;
             melangeRecebida = 0;
             fimCiclo = false;
 
             fatorClimatico = Math.random();
-            System.out.println(fatorClimatico);
 
             System.out.println("Ciclo " + i);
+            System.out.println();
+
+            System.out.println(fatorClimatico);
             System.out.println();
 
             Utilitarios.esperar(1000);
@@ -140,10 +142,6 @@ public class GerenciamentoDeEspeciarias {
                 Utilitarios.esperar(200);
 
                 switch (opcaoEscolhida) {
-//                    case -1: // Captura de Exceções
-//                        System.out.println("Opção inválida. Escolha uma das opções abaixo.");
-//                        System.out.println();
-//                        break;
 
                     case 1: // Mostrar informações
                         System.out.println("Ciclo atual: " + i);
@@ -169,73 +167,48 @@ public class GerenciamentoDeEspeciarias {
                         break;
 
                     case 3: // Contratar grupo Fremen
-                        fremenContratados += 1;
-                        System.out.println("Contratou grupo Fremen.");
-                        System.out.println("Grupos Fremen contratados: " + fremenContratados);
-                        System.out.println();
+                        if (quantidadeMelange < 200) {
+                            System.out.println("Quantidade de Melange insuficiente");
+                            System.out.println();
+                        } else {
+                            quantidadeMelange -= 200;
+                            fremenContratados += 1;
+                            System.out.println("Contratou grupo Fremen");
+                            System.out.println("Grupos Fremen contratados: " + fremenContratados);
+                            System.out.println();
+                        }
                         break;
 
                     case 4: // Enviar colheitadeiras
-                        System.out.println("Quantas colheitadeiras irá enviar: (colheitadeiras disponíveis: " + colheitadeirasDisponiveis + ") ");
-                        System.out.print("Quantidade: ");
-
-                        try { //Verificação
-                            colheitadeirasEnviadas = scan.nextInt();
-                        } catch (InputMismatchException e) {
-                            colheitadeirasEnviadas = 0;
-                            scan.next();
-                        }
-                        System.out.println();
-
-                        if (colheitadeirasEnviadas < 1 || colheitadeirasEnviadas > colheitadeirasDisponiveis) {
-                            if (colheitadeirasEnviadas < 1) {
-                                System.out.println("Você deve enviar ao menos 1 colheitadeira.");
-                            } else {
-                                System.out.println("Você não possui " + colheitadeirasEnviadas + " colheitadeiras.");
-                            }
+                        if (colheitadeirasDisponiveis == 0) {
+                            System.out.println("Você não possui colheitadeiras. Compre uma por 500 Melange.");
                         } else {
-                            System.out.println("Você enviou " + colheitadeirasEnviadas + " colheitadeiras.");
-                            System.out.println();
+                            while (colheitadeirasEnviadas == 0) {
+                                System.out.println("Quantas colheitadeiras irá enviar: (colheitadeiras disponíveis: " + colheitadeirasDisponiveis + ") ");
+                                System.out.print("Quantidade: ");
 
-                            vermeAtacou = Utilitarios.temAtaque(colheitadeirasEnviadas, fatorClimatico, fremenContratados);
+                                try { //Verificação
+                                    colheitadeirasEnviadas = scan.nextInt();
+                                } catch (InputMismatchException e) {
+                                    scan.next();
+                                }
+                                System.out.println();
+                                Utilitarios.esperar(500);
 
-                            Utilitarios.esperar(2000);
-
-                            if (vermeAtacou) {
-                                melangeRecebida = 0;
-                                colheitadeirasPerdidas = Utilitarios.calcularColheitadeirasPerdidas(colheitadeirasEnviadas);
-
-                                if (colheitadeirasPerdidas < colheitadeirasEnviadas) {
-                                    colheitadeirasDisponiveis -= colheitadeirasPerdidas;
-                                    System.out.println(Utilitarios.colorirTexto("vermelho", "Você sofreu um ataque verme e " +
-                                            "perdeu " + colheitadeirasPerdidas + (colheitadeirasPerdidas==1?" colheitadeira.":" " +
-                                            "colheitadeiras.")));
-
-                                    Utilitarios.esperar(1000);
-
-                                    System.out.println("Quantidade de colheitadeiras restantes: " + colheitadeirasDisponiveis);
+                                if (colheitadeirasEnviadas < 1 || colheitadeirasEnviadas > colheitadeirasDisponiveis) {
+                                    if (colheitadeirasEnviadas < 1) {
+                                        System.out.println("Você deve enviar no mínimo 1 colheitadeira.");
+                                    } else {
+                                        System.out.println("Você não possui " + colheitadeirasEnviadas + " colheitadeiras.");
+                                    }
+                                    colheitadeirasEnviadas = 0;
+                                    System.out.println();
+                                    Utilitarios.esperar(500);
                                 } else {
-                                    colheitadeirasDisponiveis -= colheitadeirasPerdidas;
-                                    System.out.println(Utilitarios.colorirTexto("vermelho", "Você sofreu um ataque de verme e perdeu todas as colheitadeiras enviadas"));
-
-                                    Utilitarios.esperar(1000);
-
-                                    System.out.println("Quantidade de colheitadeiras restantes: " + colheitadeirasDisponiveis);
+                                    fimCiclo = true;
                                 }
-                                ataquesSofridos += 1;
-
-                            } else {
-                                for (int j = 1; j <= colheitadeirasEnviadas; j++) {
-                                    melangeProduzida = Utilitarios.gerarNumeroAleatorio(100, 300);
-                                    melangeRecebida += melangeProduzida;
-                                }
-                                System.out.println(Utilitarios.colorirTexto("VERDE", "Você foi bem sucedido e recebeu " + melangeRecebida + " Melange."));
-                                quantidadeMelange += melangeRecebida;
-                                melangeAcumulada += melangeRecebida;
                             }
-                            fimCiclo = true;
                         }
-                        System.out.println();
                         break;
 
                     case 5: // Passar o ciclo atual
@@ -253,78 +226,109 @@ public class GerenciamentoDeEspeciarias {
 
             Utilitarios.esperar(1000);
 
-            if (fremenContratados > 0) {
-                System.out.println("Pagamento dos grupos Fremen.");
+            if (colheitadeirasEnviadas > 0) {
+                System.out.println("Você enviou " + colheitadeirasEnviadas + " colheitadeiras.");
                 System.out.println();
+
+                vermeAtacou = Utilitarios.temAtaque(colheitadeirasEnviadas, fatorClimatico, fremenContratados);
+
                 Utilitarios.esperar(1000);
-                if (quantidadeMelange < (fremenContratados * 200)) {
-                    dividaFremen = (fremenContratados * 200) - quantidadeMelange;
-                    if (dividaFremen < 200) {
-                        fremenPerdidos = 1;
+
+                if (vermeAtacou) {
+                    colheitadeirasPerdidas = Utilitarios.calcularColheitadeirasPerdidas(colheitadeirasEnviadas);
+
+                    if (colheitadeirasPerdidas < colheitadeirasEnviadas) {
+                        colheitadeirasDisponiveis -= colheitadeirasPerdidas;
+                        System.out.println(Utilitarios.colorirTexto("vermelho", "Você sofreu um ataque verme e " + "perdeu " + colheitadeirasPerdidas + (colheitadeirasPerdidas == 1 ? " colheitadeira." : " " + "colheitadeiras.")));
+
+                        Utilitarios.esperar(1000);
+
+                        System.out.println("Quantidade de colheitadeiras restantes: " + colheitadeirasDisponiveis);
                     } else {
-                        fremenPerdidos = dividaFremen / 200;
+                        colheitadeirasDisponiveis -= colheitadeirasPerdidas;
+                        System.out.println(Utilitarios.colorirTexto("vermelho", "Você sofreu um ataque de verme e perdeu todas as colheitadeiras enviadas"));
+
+                        Utilitarios.esperar(1000);
+
+                        System.out.println("Quantidade de colheitadeiras restantes: " + colheitadeirasDisponiveis);
                     }
-                    quantidadeMelange -= (fremenContratados - fremenPerdidos) * 200;
-                    fremenContratados -= fremenPerdidos;
-                    System.out.println("Você não conseguiu pagar todos os grupos Fremen.");
-                    System.out.println(fremenPerdidos + " grupos Fremen se revoltaram e foram embora.");
-                    System.out.println("Grupos Fremen restantes: " + fremenContratados);
+                    ataquesSofridos += 1;
+
                 } else {
-                    quantidadeMelange -= fremenContratados * 200;
-                    System.out.println("Você pagou os grupos Fremen.");
-                    System.out.println("Melange restante: " + quantidadeMelange);
+                    for (int j = 1; j <= colheitadeirasEnviadas; j++) {
+                        melangeProduzida = Utilitarios.gerarNumeroAleatorio(100, 300);
+                        melangeRecebida += melangeProduzida;
+                    }
+                    System.out.println(Utilitarios.colorirTexto("VERDE", "Você foi bem sucedido e recebeu " + melangeRecebida + " Melange."));
+                    quantidadeMelange += melangeRecebida;
+                    melangeAcumulada += melangeRecebida;
                 }
                 System.out.println();
                 Utilitarios.esperar(1000);
             }
-            //Este é o último bloco lógico antes do fim de um ciclo
+
             if (i % 3 == 0) {
-                System.out.println(Utilitarios.colorirTexto("vermelho", "Tributo do Imperador.\n"));
+                System.out.println(Utilitarios.colorirTexto("vermelho", "Tributo do Imperador."));
+                System.out.println();
                 Utilitarios.esperar(1000);
 
-                System.out.println("O Imperador cobra de você 1000 Melange pelas operações em " + Utilitarios.colorirTexto("verde", "Arrakis") + ".\n");
+                System.out.println("O Imperador cobra de você 1000 Melange pelas operações em " + Utilitarios.colorirTexto("verde", "Arrakis"));
+                System.out.println();
                 Utilitarios.esperar(1000);
+
                 if (quantidadeMelange >= 1000) {
                     System.out.println("Você pagou o tributo do Imperador.");
                     quantidadeMelange -= 1000;
                 } else {
                     switch (penalidadeImperador) {
+
                         case 0:
                             penalidadeImperador += 1;
-                            System.out.println("Você não consegue pagar o Imperador.\n");
+                            System.out.println("Você não consegue pagar o Imperador.");
+                            System.out.println();
                             Utilitarios.esperar(1000);
 
                             if (quantidadeMelange >= 500) {
                                 quantidadeMelange -= 500;
-                                System.out.println("Você recebe uma multa de 500 Melange.\n");
+                                System.out.println("Você recebe uma multa de 500 Melange.");
+                                System.out.println();
                             } else {
                                 quantidadeMelange = 0;
-                                System.out.println("O Imperador confiscou todo o seu estoque de Melange.\n");
+                                System.out.println("O Imperador confiscou todo o seu estoque de Melange.");
+                                System.out.println();
                             }
 
                             Utilitarios.esperar(1000);
-                            System.out.println("Você recebeu uma penalidade do Imperador.\n");
+                            System.out.println("Você recebeu uma penalidade do Imperador.");
+                            System.out.println();
                             break;
+
                         case 1:
                             penalidadeImperador += 1;
-                            System.out.println("Você não consegue pagar o Imperador.\n");
+                            System.out.println("Você não consegue pagar o Imperador.");
+                            System.out.println();
                             Utilitarios.esperar(1000);
 
                             if (colheitadeirasDisponiveis > 2) {
                                 colheitadeirasDisponiveis -= 2;
-                                System.out.println("O Imperador confiscou 2 de suas colheitadeiras.\n");
+                                System.out.println("O Imperador confiscou 2 de suas colheitadeiras.");
+                                System.out.println();
                             } else {
                                 colheitadeirasDisponiveis = 0;
-                                System.out.println("O Imperador confiscou todas as suas colheitadeiras.\n");
+                                System.out.println("O Imperador confiscou todas as suas colheitadeiras.");
+                                System.out.println();
                             }
 
                             Utilitarios.esperar(1000);
-                            System.out.println("Você recebeu uma penalidade do Imperador.\n");
+                            System.out.println("Você recebeu uma penalidade do Imperador.");
+                            System.out.println();
                             break;
+
                         case 2:
                             i = 13;
                             penalidadeImperador += 1;
-                            System.out.println("Você não consegue pagar o Imperador.\n");
+                            System.out.println("Você não consegue pagar o Imperador.");
+                            System.out.println();
 
                             Utilitarios.esperar(1000);
 
