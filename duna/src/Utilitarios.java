@@ -122,6 +122,7 @@ public class Utilitarios {
         }
     }
 
+
     /**
      * Imprime no console os resultados com os principais dados na partida.
      *

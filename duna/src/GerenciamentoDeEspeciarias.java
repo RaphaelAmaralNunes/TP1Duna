@@ -38,31 +38,29 @@ import java.util.Scanner;
 public class GerenciamentoDeEspeciarias {
 
     public static void main(String[] args) {
-
         int colheitadeirasDisponiveis;
-        int quantidadeMelange;
-        int fremenContratados;
-
-        int opcaoEscolhida;
-
         int colheitadeirasEnviadas;
-
-        double fatorClimatico;
-        String clima;
-        boolean vermeAtacou;
-        int ataquesSofridos;
         int colheitadeirasPerdidas;
+
+        int quantidadeMelange;
         int melangeProduzida;
         int melangeRecebida;
         int melangeAcumulada;
 
-        int dividaFremen;
+        int fremenContratados;
         int fremenPerdidos;
-
-        int penalidadeImperador;
+        int dividaFremen;
 
         int ciclosJogados;
+        int opcaoEscolhida;
+        int ataquesSofridos;
+        int penalidadeImperador;
+
+        double fatorClimatico;
+        String clima;
+
         boolean fimCiclo;
+        boolean vermeAtacou;
 
         colheitadeirasDisponiveis = 10;
         quantidadeMelange = 0;
@@ -89,6 +87,7 @@ public class GerenciamentoDeEspeciarias {
             fimCiclo = false;
 
             fatorClimatico = Math.random();
+            System.out.println(fatorClimatico);
 
             System.out.println("Ciclo " + i);
             System.out.println();
@@ -141,10 +140,10 @@ public class GerenciamentoDeEspeciarias {
                 Utilitarios.esperar(200);
 
                 switch (opcaoEscolhida) {
-                    case -1: // Captura de Exceções
-                        System.out.println("Opção inválida. Escolha uma das opções abaixo.");
-                        System.out.println();
-                        break;
+//                    case -1: // Captura de Exceções
+//                        System.out.println("Opção inválida. Escolha uma das opções abaixo.");
+//                        System.out.println();
+//                        break;
 
                     case 1: // Mostrar informações
                         System.out.println("Ciclo atual: " + i);
@@ -208,7 +207,9 @@ public class GerenciamentoDeEspeciarias {
 
                                 if (colheitadeirasPerdidas < colheitadeirasEnviadas) {
                                     colheitadeirasDisponiveis -= colheitadeirasPerdidas;
-                                    System.out.println(Utilitarios.colorirTexto("vermelho", "Você sofreu um ataque verme e perdeu " + colheitadeirasPerdidas + " colheitadeiras."));
+                                    System.out.println(Utilitarios.colorirTexto("vermelho", "Você sofreu um ataque verme e " +
+                                            "perdeu " + colheitadeirasPerdidas + (colheitadeirasPerdidas==1?" colheitadeira.":" " +
+                                            "colheitadeiras.")));
 
                                     Utilitarios.esperar(1000);
 
@@ -258,7 +259,7 @@ public class GerenciamentoDeEspeciarias {
                 Utilitarios.esperar(1000);
                 if (quantidadeMelange < (fremenContratados * 200)) {
                     dividaFremen = (fremenContratados * 200) - quantidadeMelange;
-                    if (dividaFremen < 200){
+                    if (dividaFremen < 200) {
                         fremenPerdidos = 1;
                     } else {
                         fremenPerdidos = dividaFremen / 200;
@@ -278,92 +279,61 @@ public class GerenciamentoDeEspeciarias {
             }
             //Este é o último bloco lógico antes do fim de um ciclo
             if (i % 3 == 0) {
-                System.out.println(Utilitarios.colorirTexto("vermelho", "Tributo do Imperador."));
-                System.out.println();
-
+                System.out.println(Utilitarios.colorirTexto("vermelho", "Tributo do Imperador.\n"));
                 Utilitarios.esperar(1000);
 
                 System.out.println("O Imperador cobra de você 1000 Melange pelas operações em " + Utilitarios.colorirTexto("verde", "Arrakis"));
                 System.out.println();
-
                 Utilitarios.esperar(1000);
-
-                switch (penalidadeImperador) {
-                    case 0:
-                        if (quantidadeMelange < 1000) {
+                if (quantidadeMelange >= 1000) {
+                    System.out.println("Você pagou o tributo do Imperador.");
+                    quantidadeMelange -= 1000;
+                } else {
+                    switch (penalidadeImperador) {
+                        case 0:
                             penalidadeImperador += 1;
-                            System.out.println("Você não consegue pagar o Imperador.");
-                            System.out.println();
-
+                            System.out.println("Você não consegue pagar o Imperador.\n");
                             Utilitarios.esperar(1000);
 
-                            if (quantidadeMelange >= 500){
+                            if (quantidadeMelange >= 500) {
                                 quantidadeMelange -= 500;
-                                System.out.println("Você recebe uma multa de 500 Melange.");
+                                System.out.println("Você recebe uma multa de 500 Melange.\n");
                             } else {
                                 quantidadeMelange = 0;
-                                System.out.println("O Imperador confiscou os seus estoques de Melange.");
+                                System.out.println("O Imperador confiscou todo o seu estoque de Melange.\n");
                             }
-                            System.out.println();
 
                             Utilitarios.esperar(1000);
-
-                            System.out.println("Você recebeu uma penalidade do Imperador.");
-
-                        } else {
-                            quantidadeMelange -= 1000;
-                            System.out.println("Você pagou o tributo do Imperador.");
-                        }
-                        System.out.println();
-                        break;
-
-                    case 1:
-                        if (quantidadeMelange < 1000) {
+                            System.out.println("Você recebeu uma penalidade do Imperador.\n");
+                            break;
+                        case 1:
                             penalidadeImperador += 1;
-                            System.out.println("Você não consegue pagar o Imperador.");
-                            System.out.println();
-
+                            System.out.println("Você não consegue pagar o Imperador.\n");
                             Utilitarios.esperar(1000);
 
-                            if (colheitadeirasDisponiveis > 2){
+                            if (colheitadeirasDisponiveis > 2) {
                                 colheitadeirasDisponiveis -= 2;
-                                System.out.println("O Imperador confiscou 2 de suas colheitadeiras.");
+                                System.out.println("O Imperador confiscou 2 de suas colheitadeiras.\n");
                             } else {
                                 colheitadeirasDisponiveis = 0;
-                                System.out.println("O Imperador confiscou suas colheitadeiras.");
+                                System.out.println("O Imperador confiscou todas as suas colheitadeiras.\n");
                             }
-                            System.out.println();
 
                             Utilitarios.esperar(1000);
-
-                            System.out.println("Você recebeu uma penalidade do Imperador.");
-                        } else {
-                            quantidadeMelange -= 1000;
-                            System.out.println("Você pagou o tributo do Imperador.");
-                        }
-                        System.out.println();
-                        break;
-
-                    case 2:
-                        if (quantidadeMelange < 1000) {
+                            System.out.println("Você recebeu uma penalidade do Imperador.\n");
+                            break;
+                        case 2:
                             i = 13;
                             penalidadeImperador += 1;
-                            System.out.println("Você não consegue pagar o Imperador.");
-                            System.out.println();
+                            System.out.println("Você não consegue pagar o Imperador.\n");
 
                             Utilitarios.esperar(1000);
 
                             System.out.println("Você foi destituído do cargo de Governador de " + Utilitarios.colorirTexto("verde", "Arrakis"));
                             System.out.println();
-                        } else {
-                            quantidadeMelange -= 1000;
-                            System.out.println("Você pagou o tributo do Imperador.");
-                            System.out.println();
-                        }
-                        break;
+                            break;
+                    }
                 }
-
-                Utilitarios.esperar(1000);
             }
         }
         Utilitarios.gerarRelatorioFinal(melangeAcumulada, colheitadeirasDisponiveis, ataquesSofridos, penalidadeImperador, ciclosJogados);
