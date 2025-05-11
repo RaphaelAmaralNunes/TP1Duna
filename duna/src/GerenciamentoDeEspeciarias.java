@@ -38,18 +38,19 @@ import java.util.Scanner;
 public class GerenciamentoDeEspeciarias {
 
     public static void main(String[] args) {
+        int dificuldade;
+        boolean escolheuDificuldade = false;
+
         int colheitadeirasDisponiveis;
         int colheitadeirasEnviadas;
         int colheitadeirasPerdidas;
 
-        int quantidadeMelange;
+        int quantidadeMelange = 0;
         int melangeProduzida;
         int melangeRecebida;
         int melangeAcumulada;
 
         int fremenContratados;
-        int fremenPerdidos;
-        int dividaFremen;
 
         int ciclosJogados;
         int opcaoEscolhida;
@@ -62,8 +63,44 @@ public class GerenciamentoDeEspeciarias {
         boolean fimCiclo;
         boolean vermeAtacou;
 
+        Scanner scan = new Scanner(System.in);
+        System.out.println();
+
+        while (!escolheuDificuldade) {
+            System.out.println("Selecione a dificuldade do jogo: ");
+            System.out.println("1 - Fácil");
+            System.out.println("2 - Médio");
+            System.out.println("3 - Difícil");
+            System.out.print("Dificuldade escolhida: ");
+
+            try {
+                dificuldade = scan.nextInt();
+            } catch (InputMismatchException e) {
+                dificuldade = 0;
+                scan.next();
+            }
+
+            System.out.println();
+
+            switch (dificuldade) {
+                case 1:
+                    quantidadeMelange = 1000;
+                    escolheuDificuldade = true;
+                    break;
+                case 2:
+                    quantidadeMelange = 500;
+                    escolheuDificuldade = true;
+                    break;
+                case 3:
+                    escolheuDificuldade = true;
+                    break;
+                default:
+                    System.out.println("Escolha uma das dificuldades abaixo.");
+                    System.out.println();
+            }
+        }
+
         colheitadeirasDisponiveis = 10;
-        quantidadeMelange = 0;
         ataquesSofridos = 0;
         penalidadeImperador = 0;
         melangeAcumulada = 0;
@@ -76,8 +113,6 @@ public class GerenciamentoDeEspeciarias {
         System.out.println();
 
         Utilitarios.esperar(1000);
-
-        Scanner scan = new Scanner(System.in);
 
         for (int i = 1; i <= 12; i++) {
             ciclosJogados += 1;
