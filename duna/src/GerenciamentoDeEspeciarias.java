@@ -57,6 +57,7 @@ public class GerenciamentoDeEspeciarias {
             System.out.println("3 - Difícil");
             System.out.print("Dificuldade escolhida: ");
 
+            //Verifica se o usuário digitou algo diferente de um número inteiro.
             try {
                 nivelDeDificuldade = scan.nextInt();
             } catch (InputMismatchException e) {
@@ -83,6 +84,7 @@ public class GerenciamentoDeEspeciarias {
                     System.out.println();
             }
         }
+
         // Configuração inicial
         colheitadeirasDisponiveis = 10;
         ataquesSofridos = 0;
@@ -98,6 +100,7 @@ public class GerenciamentoDeEspeciarias {
 
         Utilitarios.esperar(1000);
 
+        // Loop principal, controla os 12 ciclos do jogo
         for (int i = 1; i <= 12; i++) {
             ciclosJogados += 1;
             colheitadeirasEnviadas = 0;
@@ -105,12 +108,13 @@ public class GerenciamentoDeEspeciarias {
             melangeRecebida = 0;
             fimCiclo = false;
 
-            fatorClimatico = Math.random();
-
             System.out.println("Ciclo " + i);
             System.out.println();
 
+            fatorClimatico = Math.random();
+
             Utilitarios.esperar(1000);
+
             // Fator climático é gerado via Math.random() e consiste em um número entre 0 e 1
             if (fatorClimatico <= 0.25) {
                 clima = "calmo";
@@ -135,6 +139,17 @@ public class GerenciamentoDeEspeciarias {
             System.out.println("Quantidade de penalidades: " + penalidadeImperador);
             System.out.println();
 
+            Utilitarios.esperar(1000);
+
+            // Acontece caso o usuário não possua colheitadeiras e nem condições de comprar mais colheitadeiras
+            if (colheitadeirasDisponiveis == 0 && quantidadeMelange < 500) {
+                i = 13;
+                fimCiclo = true;
+                System.out.println("Você não possuí mais recursos para operar em " + Utilitarios.colorirTexto("verde", "Arrakis."));
+                System.out.println();
+            }
+
+            // Loop da escolha do usuário. O usuário sairá do loop quando decidir enviar colheitadeiras
             while (!fimCiclo) {
 
                 Utilitarios.esperar(1000);
@@ -142,9 +157,8 @@ public class GerenciamentoDeEspeciarias {
                 System.out.println("Escolha uma opção:");
                 System.out.println("1 - Ver informações do ciclo atual");
                 System.out.println("2 - Comprar colheitadeira (500 Melange)");
-                System.out.println("3 - Contratar grupo Fremen (200 Melange / ciclo cada)");
+                System.out.println("3 - Contratar grupo Fremen (200 Melange)");
                 System.out.println("4 - Enviar colheitadeiras");
-                System.out.println("5 - Passar ciclo");
                 System.out.print("Opção: ");
 
                 try {
@@ -157,6 +171,7 @@ public class GerenciamentoDeEspeciarias {
 
                 Utilitarios.esperar(200);
 
+                // Opções do usuário para cada ciclo
                 switch (opcaoEscolhida) {
 
                     case 1: // Mostrar informações
@@ -203,7 +218,7 @@ public class GerenciamentoDeEspeciarias {
                                 System.out.println("Quantas colheitadeiras irá enviar: (colheitadeiras disponíveis: " + colheitadeirasDisponiveis + ") ");
                                 System.out.print("Quantidade: ");
 
-                                try { //Verificação
+                                try {
                                     colheitadeirasEnviadas = scan.nextInt();
                                 } catch (InputMismatchException e) {
                                     scan.next();
@@ -211,6 +226,7 @@ public class GerenciamentoDeEspeciarias {
                                 System.out.println();
                                 Utilitarios.esperar(500);
 
+                                // Verifica se o usuário enviou um número inválido de colheitadeiras
                                 if (colheitadeirasEnviadas < 1 || colheitadeirasEnviadas > colheitadeirasDisponiveis) {
                                     if (colheitadeirasEnviadas < 1) {
                                         System.out.println("Você deve enviar no mínimo 1 colheitadeira.");
@@ -227,13 +243,8 @@ public class GerenciamentoDeEspeciarias {
                         }
                         break;
 
-                    case 5: // Passar o ciclo atual
-                        System.out.println("Passou o ciclo atual.");
-                        System.out.println();
-                        fimCiclo = true;
-                        break;
-
-                    default: // Caso o usuário digite um número menor que 1 ou maior que 5
+                    // Caso o usuário digite um valor inválido
+                    default:
                         System.out.println("Opção inválida. Escolha uma das opções abaixo.");
                         System.out.println();
                         Utilitarios.esperar(200);
@@ -242,8 +253,9 @@ public class GerenciamentoDeEspeciarias {
 
             Utilitarios.esperar(1000);
 
-            if (colheitadeirasEnviadas > 0) { // Ocorre quando o usuário envia ao menos uma colheitadeira
-                System.out.println("Você enviou " + colheitadeirasEnviadas + " colheitadeiras.");
+            // Lógica das colheitadeiras enviadas
+            if (colheitadeirasEnviadas > 0) {
+                System.out.println("Você enviou " + colheitadeirasEnviadas + (colheitadeirasEnviadas==1?" colheitadeira.":" colheitadeiras."));
                 System.out.println();
 
                 vermeAtacou = Utilitarios.temAtaque(colheitadeirasEnviadas, fatorClimatico, fremenContratados);
@@ -283,6 +295,7 @@ public class GerenciamentoDeEspeciarias {
                 Utilitarios.esperar(1000);
             }
 
+            // Lógica dos tributos do Imperador
             if (i % 3 == 0) {
                 System.out.println(Utilitarios.colorirTexto("vermelho", "Tributo do Imperador."));
                 System.out.println();
