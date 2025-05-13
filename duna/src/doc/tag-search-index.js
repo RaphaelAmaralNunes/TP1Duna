@@ -1,1 +1,0 @@
-tagSearchIndex = [{"l":"Eventos Aleatórios:","h":"class GerenciamentoDeEspeciarias","d":"Section","u":"GerenciamentoDeEspeciarias.html#eventos-aleat-rios--heading"},{"l":"Recursos Gerenciados:","h":"class GerenciamentoDeEspeciarias","d":"Section","u":"GerenciamentoDeEspeciarias.html#recursos-gerenciados--heading"}];updateSearchResults();

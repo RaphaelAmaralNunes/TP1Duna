@@ -2,33 +2,17 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Classe principal responsável por gerenciar a simulão de extração de Melange no planeta Arrakis.
- *
- * <p> O jogo se divide em 12 ciclos, nos quais o jogador deve gerenciar recursos como o número de colheitadeiras, o número de
- * grupos Fremen contrados e o estoque de Melange.</p>
- *
- * <p>A cada ciclo, o jogador pode realizar ações como comprar colheitadeiras, contratar grupos Fremen, enviar colheitadeiras
- * para colher Melange(passando automaticamente o ciclo atual) ou passar o ciclo sem realizar ações. O evento Ataque de Verme
- * influencia no sucesso da colheita.</p>
- *
- * <p>A cada 3 ciclos, o Imperador exige o pagamento de 1000 Melange com tributo. Caso o jogador não pague, penalidades
- * crescente serão aplicados, resultando na perda de Melange e de colheitadeiras. Caso o jogador não pague 3 vezes, o jogo
- * será finalizado.</p>
- *
- * <p>Ao final da simulação, um relatório é gerado com as principais informações da campanha de mineração.</p>
- *
- * <h4>Recursos Gerenciados:</h4>
- * <ul>
- *     <li>Colheitadeiras</li>
- *     <li>Grupos Fremen</li>
- *     <li>Quantidade de Melange</li>
- * </ul>
- *
- * <h4>Eventos Aleatórios:</h4>
- * <ul>
- *     <li>Clima(calmo, instável, agitado, hostil): influencia da chance de ocorrer um ataque de vermes</li>
- *     <li>Ataque de Vermes: caso ocorra, resulta na perda de 1 a 6 colheitadeiras e de toda Melange gerado em um ciclo</li>
- * </ul>
+ * (contexto: Duna - Gestão de Especiaria)
+ * Você é o governador de Arrakis e deve gerenciar a extração de especiaria (melange) em um ambiente hostil. O programa simulará um ano (12 ciclos) de operações. Em cada ciclo, você decide quantas colheitadeiras enviar para o deserto, sabendo que mais máquinas aumentam a produção mas também atraem mais vermes da areia.
+ * A probabilidade de ataque de vermes é calculada como: 10% × (número de colheitadeiras) × (1 + fator climático). O fator climático varia aleatoriamente entre 0 e 1 a cada ciclo. Cada colheitadeira produz entre 100 e 300 unidades de especiaria por ciclo, mas se um verme atacar, você perde 1d6 colheitadeiras (isto é, um número aleatório entre 1 e 6) e toda a produção do ciclo.
+ * Você começa com 10 colheitadeiras e pode:
+ * Comprar mais colheitadeiras (custo: 500 unidades de especiaria cada)
+ * Contratar Fremen para espantar vermes (cada grupo de Fremen custa 200 unidades por ciclo e reduz a probabilidade de ataque em 5%, sendo possível contratar múltiplos grupos para redução cumulativa)
+ * O Imperador exige um tributo de 1000 unidades de especiaria a cada 3 ciclos. Não pagá-lo resulta nas seguintes penalidades:
+ * Primeiro atraso: multa de 500 unidades de especiaria
+ * Segundo atraso: confisco de 2 colheitadeiras
+ * Terceiro atraso: destituição do cargo (fim de jogo)
+ * O programa deve simular os 12 ciclos, permitindo decisões a cada ciclo e mostrando o resultado final: quantidade de especiaria acumulada, colheitadeiras restantes, ataques de vermes sofridos e se você conseguiu cumprir as exigências do Imperador.
  *
  * @author Iuri da Silva Fernandes
  * @author Raphael do Amaral Nunes
@@ -38,7 +22,7 @@ import java.util.Scanner;
 public class GerenciamentoDeEspeciarias {
 
     public static void main(String[] args) {
-        int dificuldade;
+        int nivelDeDificuldade;
         boolean escolheuDificuldade = false;
 
         int colheitadeirasDisponiveis;
@@ -74,15 +58,15 @@ public class GerenciamentoDeEspeciarias {
             System.out.print("Dificuldade escolhida: ");
 
             try {
-                dificuldade = scan.nextInt();
+                nivelDeDificuldade = scan.nextInt();
             } catch (InputMismatchException e) {
-                dificuldade = 0;
+                nivelDeDificuldade = 0;
                 scan.next();
             }
 
             System.out.println();
 
-            switch (dificuldade) {
+            switch (nivelDeDificuldade) {
                 case 1:
                     quantidadeMelange = 1000;
                     escolheuDificuldade = true;
@@ -99,7 +83,7 @@ public class GerenciamentoDeEspeciarias {
                     System.out.println();
             }
         }
-
+        // Configuração inicial
         colheitadeirasDisponiveis = 10;
         ataquesSofridos = 0;
         penalidadeImperador = 0;
@@ -126,11 +110,8 @@ public class GerenciamentoDeEspeciarias {
             System.out.println("Ciclo " + i);
             System.out.println();
 
-            System.out.println(fatorClimatico);
-            System.out.println();
-
             Utilitarios.esperar(1000);
-
+            // Fator climático é gerado via Math.random() e consiste em um número entre 0 e 1
             if (fatorClimatico <= 0.25) {
                 clima = "calmo";
                 System.out.println("O clima está " + Utilitarios.colorirTexto("verde", "calmo") + ".");
@@ -261,7 +242,7 @@ public class GerenciamentoDeEspeciarias {
 
             Utilitarios.esperar(1000);
 
-            if (colheitadeirasEnviadas > 0) {
+            if (colheitadeirasEnviadas > 0) { // Ocorre quando o usuário envia ao menos uma colheitadeira
                 System.out.println("Você enviou " + colheitadeirasEnviadas + " colheitadeiras.");
                 System.out.println();
 
