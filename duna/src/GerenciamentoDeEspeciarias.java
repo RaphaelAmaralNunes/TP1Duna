@@ -52,9 +52,9 @@ public class GerenciamentoDeEspeciarias {
 
         while (!escolheuDificuldade) {
             System.out.println("Selecione a dificuldade do jogo: ");
-            System.out.println("1 - Fácil");
-            System.out.println("2 - Médio");
-            System.out.println("3 - Difícil");
+            System.out.println("1 - Fácil ");
+            System.out.println("2 - Médio ");
+            System.out.println("3 - Difícil ");
             System.out.print("Dificuldade escolhida: ");
 
             //Verifica se o usuário digitou algo diferente de um número inteiro.
@@ -284,7 +284,7 @@ public class GerenciamentoDeEspeciarias {
 
                 } else {
                     for (int j = 1; j <= colheitadeirasEnviadas; j++) {
-                        melangeProduzida = Utilitarios.gerarNumeroAleatorio(100, 300);
+                        melangeProduzida = Utilitarios.gerarNumeroAleatorio(100, 301);
                         melangeRecebida += melangeProduzida;
                     }
                     System.out.println(Utilitarios.colorirTexto("VERDE", "Você foi bem sucedido e recebeu " + melangeRecebida + " Melange."));

@@ -70,7 +70,7 @@ public class Utilitarios {
         System.out.println("FIM DE JOGO!");
         System.out.println("Ciclos jogados = " + ciclosJogados);
         System.out.printf("Quantidade de Melange acumulada: %d%n", melangeAcumulada);
-        System.out.printf("Colhetadeiras restantes: %d%n", colheitadeirasRestantes);
+        System.out.printf("Colheitadeiras restantes: %d%n", colheitadeirasRestantes);
         System.out.printf("Ataques sofridos: %d%n", ataquesSofridos);
         System.out.println("Cumpriu as exigêncicas do Imperador: " + (penalidadeImperador < 3 ? "Sim" : "Não"));
     }
